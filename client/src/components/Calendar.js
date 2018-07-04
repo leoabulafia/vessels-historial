@@ -68,7 +68,8 @@ export default class CustomDateTimePicker extends PureComponent {
 				<Button
 					onClick={this.onSearchByDate}
 					variant="contained"
-					color="default">
+					color="default"
+					style={{ margin: '10px 0 10px 0' }}>
 					Search this date
 				</Button>
 			</MuiPickersUtilsProvider>

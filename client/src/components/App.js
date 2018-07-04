@@ -15,7 +15,9 @@ import TopBar from 'components/TopBar';
 import {
 	fetchVesselLocations,
 	saveImoOrMmsi,
-	toggleMarkersLine
+	toggleMarkersLine,
+	togglePlay,
+	updateInfoFromMarker
 } from 'actions';
 
 class App extends React.Component {
@@ -24,8 +26,11 @@ class App extends React.Component {
 			classes,
 			locationData,
 			fetchVesselLocations,
+			info,
 			saveImoOrMmsi,
 			toggleMarkersLine,
+			togglePlay,
+			updateInfoFromMarker,
 			vesselLocations
 		} = this.props;
 
@@ -46,15 +51,18 @@ class App extends React.Component {
 						<div className={classes.infoDataWrapper}>
 							<InfoData
 								locationData={locationData}
+								info={info}
 								vesselLocations={vesselLocations}
 								fetchVesselLocations={fetchVesselLocations}
 								toggleMarkersLine={toggleMarkersLine}
+								togglePlay={togglePlay}
 							/>
 						</div>
 						<div className={classes.containerMapWrapper}>
 							<ContainerMap
 								locationData={locationData}
 								vesselLocations={vesselLocations}
+								updateInfoFromMarker={updateInfoFromMarker}
 							/>
 						</div>
 					</div>
@@ -68,8 +76,9 @@ App.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ locationData, vesselLocations }) => ({
+const mapStateToProps = ({ locationData, info, vesselLocations }) => ({
 	locationData,
+	info,
 	vesselLocations
 });
 
@@ -77,7 +86,9 @@ export default flow(
 	connect(mapStateToProps, {
 		fetchVesselLocations,
 		saveImoOrMmsi,
-		toggleMarkersLine
+		toggleMarkersLine,
+		togglePlay,
+		updateInfoFromMarker
 	}),
 	withStyles(appStyles, { withTheme: true })
 )(App);

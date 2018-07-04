@@ -7,11 +7,18 @@ import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerC
 import Lines from 'components/Lines';
 import Markers from 'components/Markers';
 
-const ContainerMap = ({ locationData, vesselLocations }) => {
+const ContainerMap = ({
+	locationData,
+	updateInfoFromMarker,
+	vesselLocations
+}) => {
 	const markersOrPolyline = locationData.displayLine ? (
-		<Lines vesselLocations={vesselLocations} />
+		<Lines locationData={locationData} vesselLocations={vesselLocations} />
 	) : (
-		<Markers vesselLocations={vesselLocations} />
+		<Markers
+			vesselLocations={vesselLocations}
+			updateInfoFromMarker={updateInfoFromMarker}
+		/>
 	);
 	return (
 		<GoogleMap

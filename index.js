@@ -7,23 +7,8 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-//get every location of a vessel
-// app.get('/api/vessellocations', (req, res) => {
-// 	request.get(
-// 		`https://services.marinetraffic.com/api/exportvesseltrack/${
-// 			keys.aisApi
-// 		}/v:2/imo:9241786/days:1/protocol:jsono`,
-// 		(err, response, body) => {
-// 			if (!err && response.statusCode == 200) {
-// 				res.send(JSON.parse(body));
-// 			}
-// 		}
-// 	);
-// });
-
 /*
-	to avoid the cost of fetching every location on a day, just
-	fetches last 6 minutes locations of a vessel and returns only the last one
+	fetches every location of a vessel in a specific window time
 */
 
 app.post('/api/vessellocations', (req, res) => {

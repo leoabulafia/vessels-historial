@@ -9,10 +9,10 @@ class Lines extends React.Component {
 	onAnimateArrow = () => {
 		let count = 0;
 		let offset;
+
 		const arrowInterval = window.setInterval(() => {
 			count = (count + 1) % 2000;
 			offset = count / 20 + '%';
-			//clears interval when offset is 100%
 			this.setState({ arrowOffset: offset });
 		}, 20);
 	};

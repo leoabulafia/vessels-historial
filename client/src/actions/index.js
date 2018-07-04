@@ -3,6 +3,7 @@ import {
 	UPDATE_LOCATION,
 	UPDATE_INFO_FROM_MARKER,
 	TOGGLE_MARKERS_LINE,
+	TOGGLE_PLAY,
 	SAVE_IMO_OR_MMSI
 } from 'actions/types';
 import { SubmissionError } from 'redux-form';
@@ -45,6 +46,10 @@ export const fetchVesselLocations = data => (dispatch, getState) => {
 
 export const toggleMarkersLine = () => ({
 	type: TOGGLE_MARKERS_LINE
+});
+
+export const togglePlay = () => ({
+	type: TOGGLE_PLAY
 });
 
 export const saveImoOrMmsi = code => ({
