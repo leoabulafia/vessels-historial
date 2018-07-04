@@ -1,0 +1,24 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "leoabulafia <ldavalos.mail@gmail.com>",
+	"license": "MIT",
+	"engines": {
+		"node": "7.10.1",
+		"yarn": "0.21.3"
+	},
+	"dependencies": {
+		"body-parser": "^1.18.3",
+		"concurrently": "^3.6.0",
+		"express": "^4.16.3",
+		"request": "^2.87.0"
+	},
+	"scripts": {
+		"start": "node index.js",
+		"server": "nodemon index.js",
+		"dev": "concurrently \"yarn server\" \"yarn client\"",
+		"client": "cd client && yarn start",
+		"heroku-postbuild": "cd client && yarn --production=false && yarn run build"
+	}
+}
