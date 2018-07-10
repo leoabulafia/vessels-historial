@@ -13,8 +13,10 @@ import InfoData from 'components/InfoData';
 import TopBar from 'components/TopBar';
 //actions
 import {
+	changeSpeed,
 	fetchVesselLocations,
 	saveImoOrMmsi,
+	setMilliseconds,
 	toggleMarkersLine,
 	togglePlay,
 	updateInfoFromMarker
@@ -23,11 +25,13 @@ import {
 class App extends React.Component {
 	render() {
 		const {
+			changeSpeed,
 			classes,
 			locationData,
 			fetchVesselLocations,
 			info,
 			saveImoOrMmsi,
+			setMilliseconds,
 			toggleMarkersLine,
 			togglePlay,
 			updateInfoFromMarker,
@@ -46,14 +50,17 @@ class App extends React.Component {
 					<HowToUse
 						fetchVesselLocations={fetchVesselLocations}
 						saveImoOrMmsi={saveImoOrMmsi}
+						setMilliseconds={setMilliseconds}
 					/>
 					<div className={classes.mapContainer}>
 						<div className={classes.infoDataWrapper}>
 							<InfoData
+								changeSpeed={changeSpeed}
 								locationData={locationData}
 								info={info}
 								vesselLocations={vesselLocations}
 								fetchVesselLocations={fetchVesselLocations}
+								setMilliseconds={setMilliseconds}
 								toggleMarkersLine={toggleMarkersLine}
 								togglePlay={togglePlay}
 							/>
@@ -61,6 +68,7 @@ class App extends React.Component {
 						<div className={classes.containerMapWrapper}>
 							<ContainerMap
 								locationData={locationData}
+								togglePlay={togglePlay}
 								vesselLocations={vesselLocations}
 								updateInfoFromMarker={updateInfoFromMarker}
 							/>
@@ -84,8 +92,10 @@ const mapStateToProps = ({ locationData, info, vesselLocations }) => ({
 
 export default flow(
 	connect(mapStateToProps, {
+		changeSpeed,
 		fetchVesselLocations,
 		saveImoOrMmsi,
+		setMilliseconds,
 		toggleMarkersLine,
 		togglePlay,
 		updateInfoFromMarker

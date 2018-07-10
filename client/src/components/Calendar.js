@@ -23,17 +23,17 @@ export default class CustomDateTimePicker extends PureComponent {
 	};
 
 	handleToDateChange = date => {
-		console.log(date.toISOString());
 		this.setState({ toDate: date.toISOString() });
 	};
 
 	onSearchByDate = () => {
-		const { locationData, fetchVesselLocations } = this.props;
+		const { locationData, fetchVesselLocations, setMilliseconds } = this.props;
 		const { fromDate, toDate } = this.state;
+		const millisecs = new Date(toDate).getTime() - new Date(fromDate).getTime();
 
 		let code = 'imo';
 		if (locationData.imoOrMmsi.length === 9) {
-			code: 'mmsi';
+			code = 'mmsi';
 		}
 		const payload = {
 			code: code,
@@ -41,7 +41,8 @@ export default class CustomDateTimePicker extends PureComponent {
 			prelastTimestamp: formatDate(fromDate),
 			lastTimestamp: formatDate(toDate)
 		};
-		this.props.fetchVesselLocations(payload);
+		setMilliseconds(millisecs);
+		fetchVesselLocations(payload);
 	};
 
 	render() {
@@ -55,6 +56,8 @@ export default class CustomDateTimePicker extends PureComponent {
 							value={fromDate}
 							onChange={this.handleFromDateChange}
 							label="From"
+							maxDate={toDate}
+							maxDateMessage="From: date should not be after maximal date"
 						/>
 					</div>
 					<div className="picker">
@@ -62,6 +65,8 @@ export default class CustomDateTimePicker extends PureComponent {
 							value={toDate}
 							onChange={this.handleToDateChange}
 							label="To"
+							minDate={fromDate}
+							minDateMessage="To: date should not be before minimal date"
 						/>
 					</div>
 				</Fragment>

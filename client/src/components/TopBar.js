@@ -4,7 +4,6 @@
 */
 
 import React from 'react';
-import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 //material-ui components
 import AppBar from '@material-ui/core/AppBar';
@@ -67,6 +66,17 @@ class TopBar extends React.Component {
 	}
 }
 
+function validate(values) {
+	const errors = {};
+
+	if (!values.searchVessel) {
+		errors.searchVessel = 'You must provide a valid IMO or MMSI number';
+	}
+
+	return errors;
+}
+
 export default reduxForm({
+	validate,
 	form: 'searchVessel'
 })(TopBar);

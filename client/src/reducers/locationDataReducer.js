@@ -1,8 +1,10 @@
 import {
+	CHANGE_SPEED,
 	UPDATE_LOCATION,
 	TOGGLE_MARKERS_LINE,
 	TOGGLE_PLAY,
-	SAVE_IMO_OR_MMSI
+	SAVE_IMO_OR_MMSI,
+	SET_MILLISECONDS
 } from 'actions/types';
 
 const initState = {
@@ -11,6 +13,8 @@ const initState = {
 	lng: 0,
 	displayLine: false,
 	isPlaying: false,
+	speed: 1,
+	millisecs: 0,
 	imoOrMmsi: null
 };
 
@@ -23,6 +27,8 @@ export default (state = initState, action) => {
 				lng: action.payload.lng,
 				displayLine: state.displayLine,
 				isPlaying: state.isPlaying,
+				speed: state.speed,
+				millisecs: state.millisecs,
 				imoOrMmsi: state.imoOrMmsi
 			};
 		case TOGGLE_MARKERS_LINE:
@@ -32,6 +38,8 @@ export default (state = initState, action) => {
 				lng: state.lng,
 				displayLine: !state.displayLine,
 				isPlaying: state.isPlaying,
+				speed: state.speed,
+				millisecs: state.millisecs,
 				imoOrMmsi: state.imoOrMmsi
 			};
 		case SAVE_IMO_OR_MMSI:
@@ -41,7 +49,31 @@ export default (state = initState, action) => {
 				lng: state.lng,
 				displayLine: state.displayLine,
 				isPlaying: state.isPlaying,
+				speed: state.speed,
+				millisecs: state.millisecs,
 				imoOrMmsi: action.payload
+			};
+		case SET_MILLISECONDS:
+			return {
+				zoom: state.zoom,
+				lat: state.lat,
+				lng: state.lng,
+				displayLine: state.displayLine,
+				isPlaying: state.isPlaying,
+				speed: state.speed,
+				millisecs: action.payload,
+				imoOrMmsi: state.imoOrMmsi
+			};
+		case CHANGE_SPEED:
+			return {
+				zoom: state.zoom,
+				lat: state.lat,
+				lng: state.lng,
+				displayLine: state.displayLine,
+				isPlaying: state.isPlaying,
+				speed: action.payload,
+				millisecs: state.millisecs,
+				imoOrMmsi: state.imoOrMmsi
 			};
 		case TOGGLE_PLAY:
 			return {
@@ -50,6 +82,8 @@ export default (state = initState, action) => {
 				lng: state.lng,
 				displayLine: state.displayLine,
 				isPlaying: !state.isPlaying,
+				speed: state.speed,
+				millisecs: state.millisecs,
 				imoOrMmsi: state.imoOrMmsi
 			};
 		default:

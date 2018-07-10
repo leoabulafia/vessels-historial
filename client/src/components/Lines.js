@@ -6,19 +6,37 @@ class Lines extends React.Component {
 		arrowOffset: '0%'
 	};
 
-	onAnimateArrow = () => {
+	onAnimateArrow = millisecs => {
 		let count = 0;
 		let offset;
 
-		const arrowInterval = window.setInterval(() => {
-			count = (count + 1) % 2000;
-			offset = count / 20 + '%';
+		this.arrowInterval = setInterval(() => {
+			count = (count + 1) % (millisecs / 20 / this.props.locationData.speed);
+			offset =
+				count / (millisecs / 20 / 100 / this.props.locationData.speed) + '%';
 			this.setState({ arrowOffset: offset });
 		}, 20);
 	};
 
-	componentDidMount() {
-		this.onAnimateArrow();
+	componentDidUpdate(prevProps) {
+		const { locationData } = this.props;
+		if (prevProps.locationData.isPlaying !== locationData.isPlaying) {
+			switch (locationData.isPlaying) {
+				case false:
+					clearInterval(this.arrowInterval);
+					this.setState({ arrowOffset: '0%' });
+					break;
+				case true:
+					this.onAnimateArrow(locationData.millisecs);
+					break;
+			}
+		}
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.arrowInterval);
+		this.arrowInterval = undefined;
+		this.props.togglePlay();
 	}
 
 	render() {

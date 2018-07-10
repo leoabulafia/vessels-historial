@@ -1,5 +1,5 @@
 /*
-	This component will display information and options at on the left of the map.
+	This component will display information and options at the left of the map.
 	It uses conditional rendering and change info displayed dynamically
 */
 
@@ -7,11 +7,15 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+//icons
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import StopIcon from '@material-ui/icons/Stop';
 //styles
 import infoDataStyles from 'styles/infoDataStyles';
 //components
 import Calendar from 'components/Calendar';
 import InfoWindow from 'components/InfoWindow';
+import SpeedControl from 'components/SpeedControl';
 
 class InfoData extends React.Component {
 	onToggleMarkersLines = () => {
@@ -22,21 +26,38 @@ class InfoData extends React.Component {
 	};
 	render() {
 		const {
+			changeSpeed,
 			classes,
 			fetchVesselLocations,
 			info,
 			locationData,
-			vesselLocations
+			vesselLocations,
+			setMilliseconds
 		} = this.props;
+
+		const displayPlayOrStop = locationData.isPlaying ? (
+			<Button onClick={this.onTogglePlay} variant="contained" color="secondary">
+				STOP
+				<StopIcon />
+			</Button>
+		) : (
+			<Button onClick={this.onTogglePlay} variant="contained" color="primary">
+				PLAY
+				<PlayArrowIcon />
+			</Button>
+		);
+
 		const displayInfoWindow = locationData.displayLine ? (
 			<div>
-				<Button onClick={this.onTogglePlay} variant="contained" color="primary">
-					PLAY
-				</Button>
+				<div>{displayPlayOrStop}</div>
+				<div className={classes.spacing}>
+					<SpeedControl changeSpeed={changeSpeed} locationData={locationData} />
+				</div>
 			</div>
 		) : (
 			<InfoWindow info={info} />
 		);
+
 		const displayCorrectButton = locationData.displayLine ? (
 			<Button
 				onClick={this.onToggleMarkersLines}
@@ -68,19 +89,20 @@ class InfoData extends React.Component {
 				</div>
 			) : (
 				<div className={classes.container}>
-					<div style={{ margin: '10px 0 10px 0' }}>{displayCorrectButton}</div>
+					<div className={classes.spacing}>{displayCorrectButton}</div>
+					<div className={classes.spacing}>{displayInfoWindow}</div>
 
-					<Typography variant="subheading" gutterBottom>
-						Search historial for specific date
-					</Typography>
-					<div style={{ margin: '10px 0 10px 0' }}>
+					<div className={classes.spacing}>
+						<Typography variant="subheading" gutterBottom>
+							Search historial for specific date
+						</Typography>
+
 						<Calendar
 							fetchVesselLocations={fetchVesselLocations}
 							locationData={locationData}
+							setMilliseconds={setMilliseconds}
 						/>
 					</div>
-
-					{displayInfoWindow}
 				</div>
 			);
 

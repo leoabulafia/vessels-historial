@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose, withProps, withHandlers } from 'recompose';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
-import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
 
 //components
 import Lines from 'components/Lines';
@@ -10,10 +9,15 @@ import Markers from 'components/Markers';
 const ContainerMap = ({
 	locationData,
 	updateInfoFromMarker,
+	togglePlay,
 	vesselLocations
 }) => {
 	const markersOrPolyline = locationData.displayLine ? (
-		<Lines locationData={locationData} vesselLocations={vesselLocations} />
+		<Lines
+			locationData={locationData}
+			togglePlay={togglePlay}
+			vesselLocations={vesselLocations}
+		/>
 	) : (
 		<Markers
 			vesselLocations={vesselLocations}

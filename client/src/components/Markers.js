@@ -1,5 +1,5 @@
 import React from 'react';
-import { Marker, InfoWindow } from 'react-google-maps';
+import { Marker } from 'react-google-maps';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
 
 class Markers extends React.Component {

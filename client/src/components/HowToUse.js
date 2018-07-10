@@ -20,6 +20,7 @@ const createStringDate = minutes => {
 		.join(' ');
 };
 
+//onFetchVessellocations takes some imo numbers of known vessels to show examples
 class HowToUse extends React.Component {
 	onFetchVessellocations = imo => () => {
 		const payload = {
@@ -28,6 +29,7 @@ class HowToUse extends React.Component {
 			prelastTimestamp: createStringDate(60),
 			lastTimestamp: createStringDate(0)
 		};
+		this.props.setMilliseconds(1000 * 60 * 60);
 		this.props.fetchVesselLocations(payload);
 		this.props.saveImoOrMmsi(imo);
 	};
